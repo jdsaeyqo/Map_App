@@ -1,11 +1,13 @@
 package com.example.mapapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.mapapp.MapActivity.Companion.SEARCH_RESULT_EXTRA_KEY
 import com.example.mapapp.databinding.ActivityMainBinding
 import com.example.mapapp.model.LocationLatLngEntity
 import com.example.mapapp.model.SearchResultEntitiy
@@ -101,6 +103,12 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
         adapter.setSearchResultList(dataList){
 
             Toast.makeText(this,"빌딩 이름 : ${it.name}, 주소 : ${it.fullAddress}, 위도/경도 : ${it.locationLatLng}",Toast.LENGTH_SHORT).show()
+            startActivity(
+                Intent(this,MapActivity::class.java).apply {
+                    putExtra(SEARCH_RESULT_EXTRA_KEY,it)
+                }
+            )
+
         }
 
     }
